@@ -97,6 +97,23 @@ These tools are not meant to replace advanced command-line utilities, but to pro
 myIP.casa does not require user accounts or registration.  
 The tools are designed to minimize data collection and only process information necessary to perform the requested checks.
 
+## 🌐 Public IP API
+
+MyIP.casa provides a free, fast and privacy-friendly API to retrieve your public IP address.
+
+### Endpoint
+
+GET https://myip.casa/api/ip
+
+### Response
+
+```json
+{
+  "ip": "2001:41d0:404:200::3fa7"
+}
+
+```
+
 ## Project Website
 
 https://myip.casa
