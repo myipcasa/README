@@ -114,6 +114,21 @@ GET https://myip.casa/api/ip
 
 ```
 
+###OpenAPI
+
+The OpenAPI specification is available at:
+https://myip.casa/api/openapi.yaml
+
+Rate limit
+60 requests per minute per IP
+No authentication required
+
+Use cases :
+Public IP detection
+Network diagnostics
+CI/CD pipelines
+AI agents & automation
+
 ## Project Website
 
 https://myip.casa
