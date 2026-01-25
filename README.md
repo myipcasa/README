@@ -109,7 +109,7 @@ GET https://myip.casa/api/ip
 
 ```json
 {
-  "ip": "2001:41d0:404:200::3fa7"
+  "ip": "XXX.XXX.XXX.XXX"
 }
 
 ```
