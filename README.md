@@ -114,7 +114,7 @@ GET https://myip.casa/api/ip
 
 ```
 
-###OpenAPI
+### OpenAPI
 
 The OpenAPI specification is available at:
 https://myip.casa/api/openapi.yaml
