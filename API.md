@@ -53,7 +53,8 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
     "risk_score": 0,
     "risk_level": "Low"
   }
-}```
+}
+```
 
 ### 3. Bulk Lookup (Mass Analysis)
 POST /api/pro/bulk
