@@ -12,7 +12,7 @@ Welcome to the **MyIP.casa API**. This documentation provides technical specific
 All Pro endpoints require a valid API Key passed in the HTTP headers.
 
 * **Header Name:** `X-API-Key`
-* **Acquisition:** Get your key at [myip.casa](https://myip.casa)
+* **Acquisition:** Get your key at [myip.casa](https://myip.casa/subscribe)
 
 ---
 
