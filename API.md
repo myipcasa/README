@@ -20,7 +20,7 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
 *No authentication required. Rate-limited to 100 requests per day per IP.*
 
 ### 1. Get Client IP
-`GET https://myip.casa/api/myip`
+`GET https://myip.casa/api/ip`
 * **Description:** Returns the public IP address of the requester.
 * **Response:** `{"ip": "1.2.3.4"}`
 
@@ -57,16 +57,18 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
 ```
 
 ### 3. Bulk Lookup (Mass Analysis)
-POST /api/pro/bulk
+`POST /api/pro/bulk`
 
-    Description: Analyze up to 50 IP addresses in a single request to save RTT and resources.
+- **Description:** Analyze up to 50 IP addresses in a single request to save RTT and resources.
 
     Payload: {"ips": ["8.8.8.8", "1.1.1.1", "104.21.18.204"]}
 
-### 4. Quota Monitoring
-GET /api/pro/usage
 
-    Description: Returns current plan details and remaining daily credits.
+### 4. Quota Monitoring
+`GET /api/pro/usage`
+- **Description:** Returns current plan details, daily limits, and remaining credits.
+
+---
 
 ## 🛠 Integration Examples
 
