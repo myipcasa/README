@@ -71,7 +71,9 @@ GET /api/pro/usage
 ## 🛠 Integration Examples
 
 ### curl
-`curl -H "X-API-Key: YOUR_API_KEY" [https://myip.casa/api/pro/security](https://myip.casa/api/pro/security)`
+```json
+curl -H "X-API-Key: YOUR_API_KEY" [https://myip.casa/api/pro/security]
+```
 
 
 ### Python
