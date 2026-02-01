@@ -114,6 +114,8 @@ GET https://myip.casa/api/ip
 
 ```
 
+For more advanced features: [View API Documentation](./API.md)
+
 ### OpenAPI
 
 The OpenAPI specification is available at:
