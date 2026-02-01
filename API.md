@@ -78,6 +78,10 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
 
 ### curl
 ```json
+curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/ip
+```
+
+```json
 curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/security
 ```
 
