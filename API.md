@@ -60,10 +60,11 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
 `POST /api/pro/bulk`
 
 - **Description:** Analyze up to 50 IP addresses in a single request to save RTT and resources.
+- **Payload:** ```json
+{
+  "ips": ["8.8.8.8", "1.1.1.1"]
 
-    Payload: {"ips": ["8.8.8.8", "1.1.1.1", "104.21.18.204"]}
-
-
+}
 ### 4. Quota Monitoring
 `GET /api/pro/usage`
 - **Description:** Returns current plan details, daily limits, and remaining credits.
