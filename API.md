@@ -127,7 +127,7 @@ Compliance: Our service is built with privacy-first principles, ensuring no foot
 
 
 ## 📬 Support & Suggestions
-For technical support, bug reports, or feature suggestions, please use the Contact section on our official website: https://myip.casa
+For technical support, bug reports, or feature suggestions, please use the Contact section on our official website: [https://myip.casa](https://myip.casa/contact)
 
 
 
