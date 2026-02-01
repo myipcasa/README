@@ -72,7 +72,7 @@ GET /api/pro/usage
 
 ### curl
 ```json
-curl -H "X-API-Key: YOUR_API_KEY" [https://myip.casa/api/pro/security]
+curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/security
 ```
 
 
