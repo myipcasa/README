@@ -81,26 +81,38 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
 curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/security
 ```
 
+```json
+curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/vpn
+```
+
+```json
+curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/details
+```
+
+```json
+curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/health
+```
 
 ### Python
 
 import requests
-
-url = "[https://myip.casa/api/pro/security](https://myip.casa/api/pro/security)"
+```json
+url = "https://myip.casa/api/pro/details"
 headers = {"X-API-Key": "YOUR_API_KEY"}
 
 response = requests.get(url, headers=headers)
 print(response.json())
-
+```
 
 ### Node.js (Fetch)
 JavaScript
-const response = await fetch('[https://myip.casa/api/pro/security](https://myip.casa/api/pro/security)', {
+```json
+const response = await fetch('https://myip.casa/api/pro/security', {
     headers: { 'X-API-Key': 'YOUR_API_KEY' }
 });
 const data = await response.json();
 console.log(data);
-
+```
 
 ## Privacy & Ethics
 No-Log Policy: We do not store, log, or track the IP addresses submitted for processing.
