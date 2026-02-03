@@ -21,7 +21,7 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
 
 ### 1. Get Client IP
 `GET https://myip.casa/api/ip`
-```json
+```bash
 curl https://myip.casa/api/ip
 ```
 * **Description:** Returns the public IP address of the requester.
