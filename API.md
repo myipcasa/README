@@ -3,30 +3,14 @@
 [![Service Status](https://img.shields.io/badge/Service-Healthy-success)](https://myip.casa/api/pro/health)
 [![License](https://img.shields.io/badge/License-Proprietary-orange)](#)
 [![Privacy](https://img.shields.io/badge/Privacy-No--Logs-blue)](#privacy--ethics)
+[![IP API](https://img.shields.io/badge/IP-GeoJSON-blue.svg?logo=leaflet)](https://myip.casa/api/ip)
+[![Free](https://img.shields.io/badge/Free-100req/h-green.svg)](https://myip.casa/subscribe)
+[![JSON](https://img.shields.io/badge/Format-JSON-lightgrey.svg)](https://myip.casa/api/ip)
+
 
 Welcome to the **MyIP.casa API**. This documentation provides technical specifications for integrating our high-speed IP intelligence, threat detection, and geo-location services.
 
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebAPI",
-  "name": "MyIP.casa API",
-  "description": "Free IP lookup, geolocation, security checks. JSON responses for developers & AI agents.",
-  "url": "https://myip.casa/api/ip",
-  "provider": {
-    "@type": "Organization",
-    "name": "MyIP.casa"
-  },
-  "featureList": ["IP Geolocation", "Tor Detection"],
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "documentation": "https://github.com/myipcasa/README/blob/main/API.md"
-}
-</script>
+keywords: ip api, geolocation api, json api, ai agent tool
 
 ---
 
