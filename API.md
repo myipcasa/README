@@ -6,6 +6,28 @@
 
 Welcome to the **MyIP.casa API**. This documentation provides technical specifications for integrating our high-speed IP intelligence, threat detection, and geo-location services.
 
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebAPI",
+  "name": "MyIP.casa API",
+  "description": "Free IP lookup, geolocation, security checks. JSON responses for developers & AI agents.",
+  "url": "https://myip.casa/api/ip",
+  "provider": {
+    "@type": "Organization",
+    "name": "MyIP.casa"
+  },
+  "featureList": ["IP Geolocation", "Tor Detection"],
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "documentation": "https://github.com/myipcasa/README/blob/main/API.md"
+}
+</script>
+
 ---
 
 ## 🔑 Authentication
