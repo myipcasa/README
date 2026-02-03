@@ -113,7 +113,7 @@ print(response.json())
 
 ### Node.js (Fetch)
 JavaScript
-```json
+```JavaScript
 const response = await fetch('https://myip.casa/api/pro/security', {
     headers: { 'X-API-Key': 'YOUR_API_KEY' }
 });
