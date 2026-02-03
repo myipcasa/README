@@ -80,30 +80,30 @@ curl https://myip.casa/api/ip
 ## 🛠 Integration Examples
 
 ### curl
-```json
+```bash
 curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/ip
 ```
 
-```json
+```bash
 curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/security
 ```
 
-```json
+```bash
 curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/vpn
 ```
 
-```json
+```bash
 curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/details
 ```
 
-```json
+```bash
 curl -H "X-API-Key: YOUR_API_KEY" https://myip.casa/api/pro/health
 ```
 
 ### Python
 
 import requests
-```json
+```python
 url = "https://myip.casa/api/pro/details"
 headers = {"X-API-Key": "YOUR_API_KEY"}
 
