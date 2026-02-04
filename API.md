@@ -25,7 +25,7 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
 ## 🚀 Public Endpoints
 *No authentication required. Rate-limited to 100 requests per day per IP.*
 
-### 1. Get Client IP
+### Get Client IP
 `GET https://myip.casa/api/ip`
 ```bash
 curl https://myip.casa/api/ip
@@ -35,21 +35,22 @@ curl https://myip.casa/api/ip
 * **Description:** Returns the public IP address of the requester.
 * **Response:** `{"ip": "1.2.3.4"}`
 
-### 2. Service Health
-`GET https://myip.casa/api/pro/health`
-* **Description:** Checks API availability.
-* **Response:** `{"service": "api_pro", "status": "healthy"}`
 
 ---
 
 ## 💎 Pro Endpoints
 *Requires `X-API-Key`. Optimized for high-concurrency and security use cases.*
 
-### 1. Full Geo-Location
+### 1. Service Health
+`GET https://myip.casa/api/pro/health`
+* **Description:** Checks API availability.
+* **Response:** `{"service": "api_pro", "status": "healthy"}`
+
+### 2. Full Geo-Location
 `GET /api/pro/details`
 * **Description:** Provides deep network intelligence including city, country, ASN, and ISP details.
 
-### 2. Security Analysis & VPN Detection
+### 3. Security Analysis & VPN Detection
 `GET /api/pro/security`
 * **Description:** Specifically designed for fraud prevention. Detects if an IP belongs to a VPN, Tor Exit Node, or Proxy.
 * **Sample Response:**
@@ -67,7 +68,7 @@ curl https://myip.casa/api/ip
 }
 ```
 
-### 3. Bulk Lookup (Mass Analysis)
+### 4. Bulk Lookup (Mass Analysis)
 `POST /api/pro/bulk`
 
 - **Description:** Analyze up to 50 IP addresses in a single request to save RTT and resources.
@@ -79,7 +80,7 @@ curl https://myip.casa/api/ip
 }
 ```
 
-### 4. Quota Monitoring
+### 5. Quota Monitoring
 `GET /api/pro/usage`
 - **Description:** Returns current plan details, daily limits, and remaining credits.
 
