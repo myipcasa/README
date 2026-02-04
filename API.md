@@ -29,6 +29,8 @@ All Pro endpoints require a valid API Key passed in the HTTP headers.
 `GET https://myip.casa/api/ip`
 ```bash
 curl https://myip.casa/api/ip
+# For private usage with higher limits:
+# https://myip.casa/subscribe
 ```
 * **Description:** Returns the public IP address of the requester.
 * **Response:** `{"ip": "1.2.3.4"}`
