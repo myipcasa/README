@@ -28,12 +28,19 @@ curl https://myip.casa/api/ip
 ```
 * **Description:** Returns the public IP address of the requester.
 * **Response:** `{"ip": "1.2.3.4"}`
-
+* 
 ```bash
 curl https://myip.casa/api/ip?format=text
 ```
-* **Description:** Returns the public IP address of the requester.
+* **Description:** Returns the public IP address of the requester in text format.
 * **Response:** `1.2.3.4`
+
+```bash
+curl https://myip.casa/api/ping
+```
+* **Description:** Returns the status of public API.
+* **Response:** `{"status":"ok"}`
+
 ---
 
 ## 💎 Pro Endpoints
