@@ -14,13 +14,7 @@ keywords: ip api, geolocation api, json api, ai agent tool
 
 ---
 
-## 🔑 Authentication
-All Pro endpoints require a valid API Key passed in the HTTP headers.
 
-* **Header Name:** `X-API-Key`
-* **Acquisition:** Get your key at [myip.casa](https://myip.casa/subscribe)
-
----
 
 ## 🚀 Public Endpoints
 *No authentication required. Rate-limited to 100 requests per day per IP.*
@@ -35,7 +29,13 @@ curl https://myip.casa/api/ip
 * **Description:** Returns the public IP address of the requester.
 * **Response:** `{"ip": "1.2.3.4"}`
 
-
+```bash
+curl https://myip.casa/api/ip?format=text
+# For private usage with higher limits:
+# https://myip.casa/subscribe
+```
+* **Description:** Returns the public IP address of the requester.
+* **Response:** `"1.2.3.4"`
 ---
 
 ## 💎 Pro Endpoints
@@ -129,6 +129,14 @@ const response = await fetch('https://myip.casa/api/pro/security', {
 const data = await response.json();
 console.log(data);
 ```
+
+## 🔑 Authentication
+All Pro endpoints require a valid API Key passed in the HTTP headers.
+
+* **Header Name:** `X-API-Key`
+* **Acquisition:** Get your key at [myip.casa](https://myip.casa/subscribe)
+
+---
 
 ## Privacy & Ethics
 No-Log Policy: We do not store, log, or track the IP addresses submitted for processing.
