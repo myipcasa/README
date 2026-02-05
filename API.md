@@ -61,15 +61,35 @@ curl https://myip.casa/api/ping
 * **Sample Response:**
 ```json
 {
-  "ip": "1.2.3.4",
+  "ip": "198.51.100.23",
+  "location": {
+    "city": "Toronto",
+    "region": "Ontario",
+    "country": "CA",
+    "country_name": "Canada",
+    "latitude": 43.6532,
+    "longitude": -79.3832,
+    "timezone": "America/Toronto",
+    "currency": "CAD"
+  },
+  "network": {
+    "asn": 6789,
+    "asn_org": "ExampleNet Services",
+    "usage_type": "Residential"
+  },
   "security": {
-    "is_tor": false,
-    "is_vpn": true,
-    "is_proxy": false,
-    "is_datacenter": true,
-    "risk_score": 0,
-    "risk_level": "Low"
-  }
+    "is_bot": false,
+    "risk_level": "Low",
+    "risk_score": 0
+  },
+  "user_agent": {
+    "browser": "curl",
+    "os": "Other",
+    "is_mobile": false
+  },
+  "plan": "pro",
+  "quota_remaining": 49994,
+  "status": "success"
 }
 ```
 
