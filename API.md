@@ -28,7 +28,7 @@ curl https://myip.casa/api/ip
 ```
 * **Description:** Returns the public IP address of the requester.
 * **Response:** `{"ip": "1.2.3.4"}`
-* 
+
 ```bash
 curl https://myip.casa/api/ip?format=text
 ```
