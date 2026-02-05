@@ -55,10 +55,7 @@ curl https://myip.casa/api/ping
 `GET /api/pro/details`
 * **Description:** Provides deep network intelligence including city, country, ASN, and ISP details.
 
-### 3. Security Analysis & VPN Detection
-`GET /api/pro/security`
-* **Description:** Specifically designed for fraud prevention. Detects if an IP belongs to a VPN, Tor Exit Node, or Proxy.
-* **Sample Response:**
+
 ```json
 {
   "ip": "198.51.100.23",
@@ -89,6 +86,31 @@ curl https://myip.casa/api/ping
   },
   "plan": "pro",
   "quota_remaining": 49994,
+  "status": "success"
+}
+```
+
+### 3. Security Analysis & VPN Detection
+`GET /api/pro/security`
+* **Description:** Specifically designed for fraud prevention. Detects if an IP belongs to a VPN, Tor Exit Node, or Proxy.
+* **Sample Response:**
+```json
+{
+  "ip": "203.0.113.45",
+  "network": {
+    "asn_org": "Example Broadband Ltd",
+    "connection_type": "residential"
+  },
+  "security": {
+    "is_datacenter": false,
+    "is_proxy": false,
+    "is_tor": false,
+    "is_vpn": false,
+    "risk_level": "Low",
+    "risk_score": 0,
+    "threat_types": []
+  },
+  "remaining_usage": 49993,
   "status": "success"
 }
 ```
