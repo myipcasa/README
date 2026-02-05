@@ -31,11 +31,9 @@ curl https://myip.casa/api/ip
 
 ```bash
 curl https://myip.casa/api/ip?format=text
-# For private usage with higher limits:
-# https://myip.casa/subscribe
 ```
 * **Description:** Returns the public IP address of the requester.
-* **Response:** `"1.2.3.4"`
+* **Response:** `1.2.3.4`
 ---
 
 ## 💎 Pro Endpoints
