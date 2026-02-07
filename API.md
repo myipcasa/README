@@ -9,6 +9,37 @@
 
 
 Welcome to the **MyIP.casa API**. This documentation provides technical specifications for integrating our high-speed IP intelligence, threat detection, and geo-location services.
+MyIP.casa delivers fast, accurate IP data for apps, bots, and security tools.
+
+Public Endpoints (No auth, 100 req/day/IP):
+
+    GET /api/ip - Returns requester's public IP as JSON {"ip": "1.2.3.4"} or text.
+
+    GET /api/ping - API status {"status": "ok"}.
+
+Pro Endpoints (X-API-Key required):
+
+    GET /api/pro/health - Service health check.
+
+    GET /api/pro/details - Full geo: city, lat/lon, ASN, ISP, UA parsing, risk score.
+
+    GET /api/pro/security - VPN/Tor/proxy detection, threat analysis.
+
+    POST /api/pro/bulk - Analyze 50+ IPs at once.
+
+    GET /api/pro/usage - Quota tracking.
+
+Perfect for logging, fraud prevention, analytics. 99.9% uptime, IPv6 support. Upgrade via https://myip.casa/subscribe.
+
+Main Use Cases
+
+    Real-time user geolocation in web/apps.
+
+    Fraud detection & bot blocking.
+
+    Network monitoring & compliance.
+
+    Serverless integrations (no backend needed).
 
 keywords: ip api, geolocation api, json api, ai agent tool
 
