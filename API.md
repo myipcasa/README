@@ -9,7 +9,7 @@
 
 
 Welcome to the **MyIP.casa API**. This documentation provides technical specifications for integrating our high-speed IP intelligence, threat detection, and geo-location services.
-MyIP.casa delivers fast, accurate IP data for apps, bots, and security tools.
+MyIP.casa delivers fast, accurate IP data for apps, bots, and security tools. Free & Pro IP Geolocation API: Detect public IP, city/ASN details, VPN/proxy, fraud risk. No auth for basics, unlimited scale for pros.
 
 Public Endpoints (No auth, 100 req/day/IP):
 
