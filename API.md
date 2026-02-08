@@ -41,7 +41,7 @@ Main Use Cases
 
     Serverless integrations (no backend needed).
 
-keywords: ip api, geolocation api, json api, ai agent tool
+keywords: ip api, geolocation api, json api, ai agent tool, vpn detection, tor detection, security
 
 ---
 
