@@ -141,7 +141,7 @@ curl https://myip.casa/api/ip/ping
     "risk_score": 0,
     "threat_types": []
   },
-  "remaining_usage": 49993,
+  "quota_remaining": 49993,
   "status": "success"
 }
 ```
