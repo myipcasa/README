@@ -150,13 +150,13 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
   "ip": "203.0.113.25",
   "location": {
     "city": "Toronto",
-    "region": "Ontario",
     "country": "CA",
     "country_name": "Canada",
+    "currency": "CAD",
     "latitude": 43.7001,
     "longitude": -79.4163,
-    "timezone": "America/Toronto",
-    "currency": "CAD"
+    "region": "Ontario",
+    "timezone": "America/Toronto"
   },
   "network": {
     "asn": 12345,
