@@ -13,13 +13,14 @@ MyIP.casa delivers fast, accurate IP data for apps, bots, and security tools. Fr
 
 **Public Endpoints** (No auth, 100 req/day/IP):
 ```
-GET /api/ip      - Returns requester's public IP as JSON {"ip": "1.2.3.4"} or text.
-GET /api/ping    - API status {"status": "ok"}.
+GET /api/ip       - Returns requester's public IP as JSON {"ip": "1.2.3.4"} or text.
+GET /api/ip/ping  - API status {"status": "ok"}.
 ```
 
 **Pro Endpoints** (X-API-Key required):
 ```
 GET  /api/pro/ip       - Get public IP (authenticated).
+GET  /api/pro/ping     - API status check (authenticated).
 GET  /api/pro/health   - Service health check.
 GET  /api/pro/details  - Full geo: city, lat/lon, ASN, ISP, UA parsing, risk score.
 GET  /api/pro/security - VPN/Tor/proxy detection, threat analysis.
@@ -163,9 +164,14 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
     "usage_type": "Residential"
   },
   "security": {
-    "is_bot": false,
+    "is_vpn": false,
+    "is_proxy": false,
+    "is_tor": false,
+    "is_datacenter": false,
+    "risk_score": 0,
     "risk_level": "Low",
-    "risk_score": 0
+    "is_bot": false,
+    "threat_types": []
   },
   "user_agent": {
     "browser": "curl",
@@ -261,16 +267,16 @@ curl -X POST https://myip.casa/api/pro/bulk \
 {
   "results": [
     {
-      "ip": "8.8.8.8",
+      "ip": "198.51.100.10",
       "country": "US",
-      "city": "Unknown",
+      "city": "Chicago",
       "usage_type": "Data Center/Hosting",
-      "is_vpn": true
+      "is_vpn": false
     },
     {
-      "ip": "1.1.1.1",
-      "country": "Unknown",
-      "city": "Unknown",
+      "ip": "198.51.100.42",
+      "country": "DE",
+      "city": "Frankfurt",
       "usage_type": "Data Center/Hosting",
       "is_vpn": true
     },
@@ -293,7 +299,21 @@ curl -X POST https://myip.casa/api/pro/bulk \
 
 `GET https://myip.casa/api/pro/usage`
 
+```bash
+curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/usage
+```
+
 - **Description:** Returns current plan details, daily limits, and remaining credits.
+
+**Response:**
+```json
+{
+  "api_key_id": 1,
+  "plan": "pro",
+  "quota_daily": 50000,
+  "used_today": 9
+}
+```
 
 ---
 
