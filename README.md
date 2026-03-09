@@ -122,7 +122,7 @@ The OpenAPI specification is available at:
 https://myip.casa/api/openapi.yaml
 
 Rate limit
-60 requests per minute per IP
+100 requests per minute per IP
 No authentication required
 
 Use cases :
