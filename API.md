@@ -247,7 +247,7 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/vpn
 
 `POST https://myip.casa/api/pro/bulk`
 
-- **Description:** Analyze up to 50 IP addresses in a single request to save RTT and resources.
+- **Description:** Analyze up to 50 IP addresses in a single request to save RTT and resources. IPs not found return an error entry.
 
 **Payload:**
 ```json
@@ -255,7 +255,6 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/vpn
   "ips": ["8.8.8.8", "1.1.1.1", "203.0.113.25"]
 }
 ```
-
 ```bash
 curl -X POST https://myip.casa/api/pro/bulk \
   -H "Content-Type: application/json" \
@@ -268,32 +267,30 @@ curl -X POST https://myip.casa/api/pro/bulk \
 {
   "results": [
     {
-      "ip": "198.51.100.10",
+      "ip": "8.8.8.8",
       "country": "US",
-      "city": "Chicago",
+      "city": "Unknown",
+      "asn_org": "Google LLC",
       "usage_type": "Data Center/Hosting",
-      "is_vpn": false
+      "is_vpn": true
     },
     {
-      "ip": "198.51.100.42",
-      "country": "DE",
-      "city": "Frankfurt",
+      "ip": "1.1.1.1",
+      "country": "Unknown",
+      "city": "Unknown",
+      "asn_org": "Cloudflare, Inc.",
       "usage_type": "Data Center/Hosting",
       "is_vpn": true
     },
     {
       "ip": "203.0.113.25",
-      "country": "CA",
-      "city": "Toronto",
-      "usage_type": "Residential",
-      "is_vpn": false
+      "status": "error",
+      "message": "Not found"
     }
   ],
   "count": 3,
-  "quota_remaining": 49970
+  "quota_remaining": 49965
 }
-```
-
 ---
 
 ### 7. Quota Monitoring
