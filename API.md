@@ -161,7 +161,8 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
   "network": {
     "asn": 12345,
     "asn_org": "US Broadband Inc.",
-    "usage_type": "Residential"
+    "usage_type": "Residential",
+    "hostname": "ptr_record or No PTR record"
   },
   "security": {
     "is_vpn": false,
