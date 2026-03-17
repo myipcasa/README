@@ -23,7 +23,7 @@ GET  /api/pro/ip       - Get public IP (authenticated).
 GET  /api/pro/ping     - API status check (authenticated).
 GET  /api/pro/health   - Service health check.
 GET  /api/pro/details  - Full geo: city, lat/lon, ASN, ISP, UA parsing, risk score.
-GET  /api/pro/security - VPN/Tor/proxy detection, threat analysis.
+GET  /api/pro/security - VPN/Tor/proxy/abuser detection, reputation & threat analysis. Accepts optional ?ip= parameter.
 GET  /api/pro/vpn      - VPN & proxy detection with provider category.
 POST /api/pro/bulk     - Analyze up to 50 IPs at once.
 GET  /api/pro/usage    - Quota tracking.
@@ -187,15 +187,17 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
 
 ---
 
-### 4. Security Analysis & Threat Detection
+### 4. Security, Abuse & Reputation
 
 `GET https://myip.casa/api/pro/security`
 
 ```bash
 curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security
+# Query any IP using the optional ?ip= parameter:
+curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security?ip=203.0.113.25
 ```
 
-- **Description:** Real-time detection for VPN, Tor, Proxies, and Datacenter IPs. Specifically designed for fraud prevention.
+- **Description:** Real-time detection for VPN, Tor, Proxies, Datacenter IPs, and abusers. Includes reputation data: blacklist status, source, confidence, and last-seen information. Accepts an optional `?ip=` query parameter to analyze any IP address.
 
 **Response:**
 ```json
@@ -203,7 +205,8 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security
   "ip": "203.0.113.25",
   "network": {
     "asn_org": "US Broadband Inc.",
-    "connection_type": "residential"
+    "connection_type": "residential",
+    "hostname": "ptr.example.net"
   },
   "security": {
     "is_datacenter": false,
@@ -211,8 +214,15 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security
     "is_tor": false,
     "is_vpn": false,
     "risk_level": "Low",
-    "risk_score": 0,
+    "risk_score": 5,
+    "is_abuser": false,
     "threat_types": []
+  },
+  "reputation": {
+    "is_listed": false,
+    "source": "",
+    "confidence": "",
+    "last_seen_locally": ""
   },
   "quota_remaining": 49993
 }
