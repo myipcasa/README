@@ -172,7 +172,7 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
     "risk_score": 0,
     "risk_level": "Low",
     "is_bot": false,
-    "threat_types": []
+    "threat_types": ["vpn"]
   },
   "user_agent": {
     "browser": "curl",
@@ -197,7 +197,7 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security
 curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security?ip=203.0.113.25
 ```
 
-- **Description:** Real-time detection for VPN, Tor, Proxies, Datacenter IPs, and abusers. Includes reputation data: blacklist status, source, confidence, and last-seen information. Accepts an optional `?ip=` query parameter to analyze any IP address.
+- **Description:** Real-time detection for VPN, Tor, Proxies, Datacenter IPs, and abusers. Includes reputation data: blacklist status, source, confidence, local incident count, and last-seen information. Accepts an optional `?ip=` query parameter to analyze any IP address.
 
 **Response:**
 ```json
@@ -220,9 +220,10 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security?ip=203.0.113.25
   },
   "reputation": {
     "is_listed": false,
-    "source": "",
-    "confidence": "",
-    "last_seen_locally": ""
+    "source": "None",
+    "confidence": "Low",
+    "local_incidents": 0,
+    "last_seen_locally": "Never"
   },
   "quota_remaining": 49993
 }
