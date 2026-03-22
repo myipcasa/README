@@ -9,7 +9,7 @@
 
 Welcome to the **MyIP.casa API**. This documentation provides technical specifications for integrating our high-speed IP intelligence, threat detection, and geo-location services.
 
-MyIP.casa delivers fast, accurate IP data for apps, bots, and security tools. Free & Pro IP Geolocation API: Detect public IP, city/ASN details, VPN/proxy, fraud risk. No auth for basics, unlimited scale for pros.
+MyIP.casa delivers fast, accurate IP data for apps, bots, and security tools. Free & Pro IP Geolocation API: Detect public IP, city/ASN details, VPN/proxy, fraud risk. No auth for basics, unlimited scale for pros. IPv4 and IPv6 supported throughout.
 
 **Public Endpoints** (No auth, 100 req/day/IP):
 ```
@@ -19,14 +19,15 @@ GET /api/ip/ping  - API status {"status": "ok"}.
 
 **Pro Endpoints** (X-API-Key required):
 ```
-GET  /api/pro/ip       - Get public IP (authenticated).
-GET  /api/pro/ping     - API status check (authenticated).
-GET  /api/pro/health   - Service health check.
-GET  /api/pro/details  - Full geo: city, lat/lon, ASN, ISP, UA parsing, risk score.
-GET  /api/pro/security - VPN/Tor/proxy/abuser detection, reputation & threat analysis. Accepts optional ?ip= parameter.
-GET  /api/pro/vpn      - VPN & proxy detection with provider category.
-POST /api/pro/bulk     - Analyze up to 50 IPs at once.
-GET  /api/pro/usage    - Quota tracking.
+GET  /api/pro/ip          - Get public IP (authenticated).
+GET  /api/pro/ping        - API status check (authenticated).
+GET  /api/pro/health      - Service health check.
+GET  /api/pro/details     - Full geo: city, lat/lon, ASN, ISP, UA parsing, risk score, evidence. Accepts optional ?ip=.
+GET  /api/pro/security    - VPN/Tor/proxy/datacenter detection, evidence array & reputation. Accepts optional ?ip=.
+GET  /api/pro/vpn         - VPN & proxy detection with provider category. Accepts optional ?ip=.
+POST /api/pro/bulk        - Analyze up to 50 IPs at once. Accepts optional ?mode=fast.
+POST /api/pro/bulk/export - Same as /bulk but returns a CSV file attachment.
+GET  /api/pro/usage       - Quota tracking with reset countdown.
 ```
 
 Perfect for logging, fraud prevention, analytics. 99.9% uptime, IPv6 support. Upgrade via https://myip.casa/subscribe.
@@ -140,9 +141,11 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/health
 
 ```bash
 curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
+# Query any IPv4 or IPv6 address using the optional ?ip= parameter:
+curl -H "X-API-Key: YOUR_KEY" "https://myip.casa/api/pro/details?ip=203.0.113.25"
 ```
 
-- **Description:** Complete IP profile — geolocation, network, security signals, and user-agent parsing.
+- **Description:** Complete IP profile — geolocation, network, security signals, and user-agent parsing. Defaults to the caller's IP if `?ip=` is omitted. The `evidence` array provides human-readable reasons explaining the risk score. The `cached` field indicates whether the response was served from cache.
 
 **Response:**
 ```json
@@ -162,7 +165,7 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
     "asn": 12345,
     "asn_org": "US Broadband Inc.",
     "usage_type": "Residential",
-    "hostname": "ptr_record or No PTR record"
+    "hostname": "ptr.example.net"
   },
   "security": {
     "is_vpn": false,
@@ -171,8 +174,8 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
     "is_datacenter": false,
     "risk_score": 0,
     "risk_level": "Low",
-    "is_bot": false,
-    "threat_types": ["vpn"]
+    "evidence": [],
+    "is_bot": false
   },
   "user_agent": {
     "browser": "curl",
@@ -181,23 +184,24 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/details
   },
   "plan": "pro",
   "quota_remaining": 49991,
-  "status": "success"
+  "status": "success",
+  "cached": false
 }
 ```
 
 ---
 
-### 4. Security, Abuse & Reputation
+### 4. Security & Reputation
 
 `GET https://myip.casa/api/pro/security`
 
 ```bash
 curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security
-# Query any IP using the optional ?ip= parameter:
-curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security?ip=203.0.113.25
+# Query any IPv4 or IPv6 address using the optional ?ip= parameter:
+curl -H "X-API-Key: YOUR_KEY" "https://myip.casa/api/pro/security?ip=203.0.113.25"
 ```
 
-- **Description:** Real-time detection for VPN, Tor, Proxies, Datacenter IPs, and abusers. Includes reputation data: blacklist status, source, confidence, local incident count, and last-seen information. Accepts an optional `?ip=` query parameter to analyze any IP address.
+- **Description:** Real-time detection for VPN, Tor, proxies, and datacenter IPs. The `evidence` array provides human-readable reasons explaining the risk score. The `reputation` block reports blacklist status and local incident count. Accepts an optional `?ip=` query parameter to analyze any IPv4 or IPv6 address.
 
 **Response:**
 ```json
@@ -215,19 +219,17 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security?ip=203.0.113.25
     "is_vpn": false,
     "risk_level": "Low",
     "risk_score": 5,
-    "is_abuser": false,
-    "threat_types": []
+    "evidence": []
   },
   "reputation": {
     "is_listed": false,
-    "source": "None",
-    "confidence": "Low",
-    "local_incidents": 0,
-    "last_seen_locally": "Never"
+    "local_incidents": 0
   },
   "quota_remaining": 49993
 }
 ```
+
+> **Note on `connection_type`:** Possible values include `residential`, `Data Center/Hosting`, `Tor Exit Node`, `Business/Unknown`, and others depending on the IP classification.
 
 ---
 
@@ -237,9 +239,11 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security?ip=203.0.113.25
 
 ```bash
 curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/vpn
+# Query any IPv4 or IPv6 address using the optional ?ip= parameter:
+curl -H "X-API-Key: YOUR_KEY" "https://myip.casa/api/pro/vpn?ip=203.0.113.25"
 ```
 
-- **Description:** Identifies VPN usage, provider category, and residential vs. datacenter classification.
+- **Description:** Identifies VPN usage, provider category, and residential vs. datacenter classification. Supports both IPv4 and IPv6.
 
 **Response:**
 ```json
@@ -258,19 +262,25 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/vpn
 
 `POST https://myip.casa/api/pro/bulk`
 
-- **Description:** Analyze up to 50 IP addresses in a single request to save RTT and resources. IPs not found return an error entry.
+- **Description:** Analyze up to 50 IPv4 or IPv6 addresses in a single request. Each result includes country, ASN org, risk scoring, VPN detection, and a human-readable `evidence` array. The response includes a `summary` object with aggregated statistics, a `truncated` flag, and the `mode` used. Use `?mode=fast` for reduced latency (same response schema).
 
 **Payload:**
 ```json
 {
-  "ips": ["8.8.8.8", "1.1.1.1", "203.0.113.25"]
+  "ips": ["198.51.100.10", "198.51.100.42", "203.0.113.25"]
 }
 ```
 ```bash
 curl -X POST https://myip.casa/api/pro/bulk \
   -H "Content-Type: application/json" \
   -H "X-API-Key: YOUR_KEY" \
-  -d '{"ips":["8.8.8.8","1.1.1.1","203.0.113.25"]}'
+  -d '{"ips":["198.51.100.10","198.51.100.42","203.0.113.25"]}'
+
+# Fast mode (reduced latency, same response schema):
+curl -X POST "https://myip.casa/api/pro/bulk?mode=fast" \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: YOUR_KEY" \
+  -d '{"ips":["198.51.100.10","198.51.100.42","203.0.113.25"]}'
 ```
 
 **Response:**
@@ -278,33 +288,73 @@ curl -X POST https://myip.casa/api/pro/bulk \
 {
   "results": [
     {
-      "ip": "8.8.8.8",
+      "ip": "198.51.100.10",
       "country": "US",
       "city": "Unknown",
-      "asn_org": "Google LLC",
-      "usage_type": "Data Center/Hosting",
-      "is_vpn": true
+      "asn_org": "Example CDN LLC",
+      "risk_score": 80,
+      "risk_level": "High",
+      "is_vpn": true,
+      "evidence": ["DataCenter/VPN IP address", "Automated traffic from hosting network"]
     },
     {
-      "ip": "1.1.1.1",
+      "ip": "198.51.100.42",
       "country": "Unknown",
       "city": "Unknown",
-      "asn_org": "Cloudflare, Inc.",
-      "usage_type": "Data Center/Hosting",
-      "is_vpn": true
+      "asn_org": "Example Hosting Ltd.",
+      "risk_score": 80,
+      "risk_level": "High",
+      "is_vpn": true,
+      "evidence": ["DataCenter/VPN IP address", "Automated traffic from hosting network"]
     },
     {
       "ip": "203.0.113.25",
       "status": "error",
-      "message": "Not found"
+      "message": "Not found in database"
     }
   ],
+  "summary": {
+    "total": 3,
+    "high_risk": 2,
+    "vpn_detected": 2,
+    "low_risk": 0,
+    "errors": 1
+  },
+  "truncated": false,
   "count": 3,
-  "quota_remaining": 49965
+  "mode": "full",
+  "quota_remaining": 49974
 }
 ```
 
-### 7. Quota Monitoring
+---
+
+### 7. Bulk Export (CSV)
+
+`POST https://myip.casa/api/pro/bulk/export`
+
+- **Description:** Same analysis as `/api/pro/bulk` but returns results as a **CSV file attachment** instead of JSON. Useful for offline processing or spreadsheet imports. The `?mode=fast` parameter is also supported.
+
+```bash
+curl -X POST https://myip.casa/api/pro/bulk/export \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: YOUR_KEY" \
+  -d '{"ips":["198.51.100.10","198.51.100.42","203.0.113.25"]}' \
+  --output results.csv
+```
+
+**Response:** `text/csv` file attachment.
+
+```
+ip,country,city,asn_org,risk_score,risk_level,is_vpn,evidence,status,message
+198.51.100.10,US,Unknown,Example CDN LLC,80,High,true,"DataCenter/VPN IP address",,
+198.51.100.42,Unknown,Unknown,Example Hosting Ltd.,80,High,true,"DataCenter/VPN IP address",,
+203.0.113.25,,,,,,,,error,Not found in database
+```
+
+---
+
+### 8. Quota Monitoring
 
 `GET https://myip.casa/api/pro/usage`
 
@@ -312,15 +362,17 @@ curl -X POST https://myip.casa/api/pro/bulk \
 curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/usage
 ```
 
-- **Description:** Returns current plan details, daily limits, and remaining credits.
+- **Description:** Returns current plan details, daily quota limit, requests made today, remaining quota, and the time until the next daily reset (formatted as `HH:MM:SS`).
 
 **Response:**
 ```json
 {
-  "api_key_id": 1,
   "plan": "pro",
-  "quota_daily": 50000,
-  "used_today": 9
+  "quota_limit": 50000,
+  "requests_today": 15,
+  "quota_remaining": 49985,
+  "reset_in": "13:39:15",
+  "status": "active"
 }
 ```
 
@@ -348,6 +400,21 @@ headers = {"X-API-Key": "YOUR_API_KEY"}
 
 response = requests.get(url, headers=headers)
 print(response.json())
+```
+
+### Python — Bulk with summary
+
+```python
+import requests
+
+r = requests.post(
+    "https://myip.casa/api/pro/bulk",
+    headers={"Content-Type": "application/json", "X-API-Key": "YOUR_API_KEY"},
+    json={"ips": ["198.51.100.10", "198.51.100.42", "203.0.113.25"]}
+)
+data = r.json()
+print(f"High risk: {data['summary']['high_risk']} / {data['summary']['total']}")
+print(f"VPNs detected: {data['summary']['vpn_detected']}")
 ```
 
 ### Node.js (Fetch)
