@@ -201,35 +201,80 @@ curl -H "X-API-Key: YOUR_KEY" https://myip.casa/api/pro/security
 curl -H "X-API-Key: YOUR_KEY" "https://myip.casa/api/pro/security?ip=203.0.113.25"
 ```
 
-- **Description:** Real-time detection for VPN, Tor, proxies, and datacenter IPs. The `evidence` array provides human-readable reasons explaining the risk score. The `reputation` block reports blacklist status and local incident count. Accepts an optional `?ip=` query parameter to analyze any IPv4 or IPv6 address.
+- **Description:** Real-time detection for VPN, Tor, proxies, datacenter IPs, bots, and abusers. `risk_score` (0–100) and `risk_level` are returned at the root level for an instant verdict. The `evidence` array explains the score in plain language. The `reputation` block reports blacklist status, local incident count, and last-seen date. Accepts an optional `?ip=` query parameter to analyze any IPv4 or IPv6 address.
 
-**Response:**
+**Response — clean residential IP:**
 ```json
 {
   "ip": "203.0.113.25",
+  "risk_score": 5,
+  "risk_level": "Low",
+  "location": {
+    "country": "CA",
+    "city": "Toronto"
+  },
   "network": {
+    "asn": 12345,
     "asn_org": "US Broadband Inc.",
-    "connection_type": "residential",
-    "hostname": "ptr.example.net"
+    "hostname": "ptr.example.net",
+    "type": "Residential"
   },
   "security": {
-    "is_datacenter": false,
+    "is_vpn": false,
     "is_proxy": false,
     "is_tor": false,
-    "is_vpn": false,
-    "risk_level": "Low",
-    "risk_score": 5,
+    "is_datacenter": false,
+    "is_bot": false,
+    "is_abuser": false,
     "evidence": []
   },
   "reputation": {
     "is_listed": false,
-    "local_incidents": 0
+    "local_incidents": 0,
+    "last_seen": null
   },
   "quota_remaining": 49993
 }
 ```
 
-> **Note on `connection_type`:** Possible values include `residential`, `Data Center/Hosting`, `Tor Exit Node`, `Business/Unknown`, and others depending on the IP classification.
+**Response — high risk (datacenter/VPN/bot):**
+```json
+{
+  "ip": "198.51.100.42",
+  "risk_score": 80,
+  "risk_level": "High",
+  "location": {
+    "country": "IN",
+    "city": "Mumbai"
+  },
+  "network": {
+    "asn": 20473,
+    "asn_org": "Example Hosting LLC",
+    "hostname": "No PTR record",
+    "type": "Data Center/Hosting"
+  },
+  "security": {
+    "is_vpn": true,
+    "is_proxy": true,
+    "is_tor": false,
+    "is_datacenter": true,
+    "is_bot": true,
+    "is_abuser": true,
+    "evidence": ["DataCenter/VPN IP address", "Automated traffic from hosting network"]
+  },
+  "reputation": {
+    "is_listed": false,
+    "local_incidents": 0,
+    "last_seen": "2026-03-22"
+  },
+  "quota_remaining": 49959
+}
+```
+
+> **Field notes:**
+> - `risk_score` and `risk_level` are at the **root level**, not inside `security`.
+> - `network.type` possible values: `Residential`, `Data Center/Hosting`, `Tor Exit Node`, `Business/Unknown`, etc.
+> - `reputation.last_seen` is an ISO 8601 date string, or `null` if no incident has been recorded.
 
 ---
 
